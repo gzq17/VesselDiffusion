@@ -67,7 +67,7 @@ Volume Normalization (spacing, size); Projecting to Genarate MIP Images; Obtaini
     python generation.py checkpoint.resume='your chechpoint path' dataset.root='your data path' dataset.test_origin='real' 
     ```
 * **Inference for Generated MIP Image**. 
-Run Step 0 and put the generated MIP images into 'data/generated2d/mip_img/'
+Run Step 0 (required*) and put the generated MIP images into 'data/generated2d/mip_img/'
     ```shell
 	python data_preprocess/construct_graph.py --path './data/generated2d/mip_img/' --lbl 0
     python generation.py checkpoint.resume='your chechpoint path' dataset.root='your data path' dataset.test_origin='generated' 
