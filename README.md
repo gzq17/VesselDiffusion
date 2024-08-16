@@ -54,7 +54,7 @@ Volume Normalization (spacing, size); Projecting to Genarate MIP Images; Obtaini
 ### Step 2: Training
 * **Pretraining of DSFE**. 
     ```shell
-    python tpretrain_DSFE.py --data 'your data path' --output 'output path'
+    python pretrain_DSFE.py --data 'your data path' --output 'output path'
     ```
 * **Training of 2D-To-3D Generation**. 
     ```shell
