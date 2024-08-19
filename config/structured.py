@@ -44,12 +44,6 @@ class RunConfig:
 
 
 @dataclass
-class LoggingConfig:
-    wandb: bool = False##改
-    wandb_project: str = 'VesselDiffusion'
-
-
-@dataclass
 class PointCloudProjectionModelConfig:
     
     # Feature extraction arguments
@@ -203,7 +197,6 @@ class CosineSchedulerConfig(SchedulerConfig):
 @dataclass
 class ProjectConfig:
     run: RunConfig
-    logging: LoggingConfig
     dataset: PointCloudDatasetConfig
     augmentations: AugmentationConfig
     dataloader: DataloaderConfig
@@ -217,7 +210,6 @@ class ProjectConfig:
     defaults: List[Any] = field(default_factory=lambda: [
         'custom_hydra_run_dir',
         {'run': 'default'},
-        {'logging': 'default'},
         {'model': 'diffrec'},
         {'dataset': 'co3d'},
         {'augmentations': 'default'},
@@ -233,7 +225,6 @@ class ProjectConfig:
 cs = ConfigStore.instance()
 cs.store(name='custom_hydra_run_dir', node=CustomHydraRunDir, package="hydra.run")
 cs.store(group='run', name='default', node=RunConfig)
-cs.store(group='logging', name='default', node=LoggingConfig)
 cs.store(group='model', name='diffrec', node=PointCloudDiffusionModelConfig)
 cs.store(group='model', name='coloring_model', node=PointCloudColoringModelConfig)
 cs.store(group='dataset', name='co3d', node=CO3DConfig)

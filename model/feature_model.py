@@ -62,26 +62,6 @@ class FeatureModel(ModelMixin, ConfigMixin):
         # Model properties
         self.feature_dim = self.model.embed_dim
         self.mean, self.std = NORMALIZATION[model_name]
-
-        # # Modify MSN model with output head from training
-        # if model_name.endswith('msn'):
-        #     use_bn = True
-        #     emb_dim = (192 if 'tiny' in model_name else 384 if 'small' in model_name else 
-        #         768 if 'base' in model_name else 1024 if 'large' in model_name else 1280)
-        #     hidden_dim = 2048
-        #     output_dim = 256
-        #     self.model.fc = None
-        #     fc = OrderedDict([])
-        #     fc['fc1'] = torch.nn.Linear(emb_dim, hidden_dim)
-        #     if use_bn:
-        #         fc['bn1'] = torch.nn.BatchNorm1d(hidden_dim)
-        #     fc['gelu1'] = torch.nn.GELU()
-        #     fc['fc2'] = torch.nn.Linear(hidden_dim, hidden_dim)
-        #     if use_bn:
-        #         fc['bn2'] = torch.nn.BatchNorm1d(hidden_dim)
-        #     fc['gelu2'] = torch.nn.GELU()
-        #     fc['fc3'] = torch.nn.Linear(hidden_dim, output_dim)
-        #     self.model.fc = torch.nn.Sequential(fc)
         
         # Load pretrained checkpoint
         checkpoint = torch.hub.load_state_dict_from_url(MODEL_URLS[model_name])
@@ -90,24 +70,12 @@ class FeatureModel(ModelMixin, ConfigMixin):
         elif 'target_encoder' in checkpoint:
             state_dict = checkpoint['target_encoder']
             state_dict = {k.replace('module.', ''): v for k, v in state_dict.items()}
-            # NOTE: Comment the line below if using the projection head, uncomment if not using it
-            # See https://github.com/facebookresearch/msn/blob/81cb855006f41cd993fbaad4b6a6efbb486488e6/src/msn_train.py#L490-L502
-            # for more info about the projection head
             state_dict = {k: v for k, v in state_dict.items() if not k.startswith('fc.')}
         else:
             raise NotImplementedError()
         state_dict['pos_embed'] = resize_pos_embed(state_dict['pos_embed'], self.model.pos_embed)
         self.model.load_state_dict(state_dict)
         self.model.eval()
-
-        # # Modify MSN model with output head from training
-        # if model_name.endswith('msn'):
-        #     self.fc = self.model.fc
-        #     del self.model.fc
-        # else:
-        #     self.fc = nn.Identity()
-        
-        # NOTE: I've disabled the whole projection head stuff for simplicity for now
         self.fc = nn.Identity()
 
     def denormalize(self, img: Tensor):

@@ -9,11 +9,11 @@ from diffusers.schedulers.scheduling_pndm import PNDMScheduler
 from tqdm import tqdm
 
 from .model_utils import get_custom_betas
-from .point_cloud_model import PointCloudModel
-from .projection_model import PointCloudProjectionModel
+from .pvn_model import PVNModel
+from .VesselDiffusion_model import VesselDiffusionModel
 
 
-class ConditionalPointCloudDiffusionModel(PointCloudProjectionModel):
+class Two2ThreeDiffusionModel(VesselDiffusionModel):
     
     def __init__(
         self,
@@ -39,7 +39,7 @@ class ConditionalPointCloudDiffusionModel(PointCloudProjectionModel):
         self.scheduler = self.schedulers_map['ddpm']  # this can be changed for inference
 
         # Create point cloud model for processing point cloud at each diffusion step
-        self.point_cloud_model = PointCloudModel(
+        self.point_cloud_model = PVNModel(
             embed_dim=point_cloud_model_embed_dim,
             in_channels=self.in_channels,
             out_channels=self.out_channels,

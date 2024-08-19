@@ -12,7 +12,7 @@ import os
 SchedulerClass = Union[DDPMScheduler, DDIMScheduler, PNDMScheduler, LMSDiscreteScheduler]
 
 
-class PointCloudProjectionModel(ModelMixin):
+class VesselDiffusionModel(ModelMixin):
     def __init__(
         self,
         image_size: int,

@@ -5,7 +5,7 @@ from torch import Tensor
 
 from .pvcnn.pvcnn import PVCNN2
 
-class PointCloudModel(ModelMixin, ConfigMixin):
+class PVNModel(ModelMixin, ConfigMixin):
     @register_to_config
     def __init__(
         self,
