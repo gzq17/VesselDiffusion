@@ -51,24 +51,12 @@ class Two2ThreeDiffusionModel(VesselDiffusionModel):
         # Sample random noise
         noise = torch.randn_like(x_0)
 
-        # Sample random timesteps for each point_cloud
         timestep = torch.randint(0, self.scheduler.num_train_timesteps, (B,), device=self.device, dtype=torch.long)
-
-        # Add noise to points
         x_t = self.scheduler.add_noise(x_0, noise, timestep)
-
-        # Conditioning
         x_t_input = self.extend_feature(x_t, mip_img, mean, std, hf_size, t=timestep, adj=adj, geo=geo)
-        # import pdb; pdb.set_trace()
-
-        # Forward
         noise_pred = self.point_cloud_model(x_t_input, timestep)
-        
-        # Check
         if not noise_pred.shape == noise.shape:
             raise ValueError(f'{noise_pred.shape=} and {noise.shape=}')
-        
-        # Loss
         loss = F.mse_loss(noise_pred, noise)
 
         return loss

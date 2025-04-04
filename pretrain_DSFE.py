@@ -347,7 +347,6 @@ def main(data_path, out_path):
             loss_cls1 = criterion_cls(stage1_cls, img_cls.long()) * 0.2
             loss_cls2 = criterion_cls(stage2_cls, img_cls.long()) * 0.2
             stage2_seg = torch.transpose(stage2_seg, 1, 2).contiguous()
-            # label_gnn = torch.transpose(label_gnn, 1, 2).contiguous()
             loss_seg2 = criterion_seg(stage2_seg, grp_lbl.long())
             loss_seg1 = dice_loss(stage1_seg, lbl) * 0.1
             loss_sum = loss_cls1 + loss_seg1 + loss_seg2 + loss_cls2

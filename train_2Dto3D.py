@@ -21,7 +21,6 @@ def main(cfg: ProjectConfig):
     log_info_txt.write(OmegaConf.to_yaml(cfg))
     log_info_txt.flush()
     print(OmegaConf.to_yaml(cfg))
-    # import pdb; pdb.set_trace()
     training_utils.set_seed(cfg.run.seed)
 
     # Model

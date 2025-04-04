@@ -20,8 +20,8 @@ class VesselDiffusionModel(ModelMixin):
         use_local_features: bool = True,
         use_gcn_features: bool = True,
         use_global_features: bool = True,
-        image_color_channels: int = 3,  # for the input image, not the points
-        color_channels: int = 3,  # for the points, not the input image
+        image_color_channels: int = 3,
+        color_channels: int = 3,
         pre_train_model: str = '',
     ):
         super().__init__()
@@ -98,7 +98,6 @@ class VesselDiffusionModel(ModelMixin):
         # cls_head_fea, deep_feature_one, gcn_fea = self.feature_model(mip_img, adj, geo, return_type='feature')
         cnn_cls_fea, cnn_seg_fea, gcn_cls_fea, gcn_seg_fea = self.feature_model(mip_img, adj, geo, return_type='feature')
         # Local conditioning
-        # import pdb;pdb.set_trace()
         if self.use_local_conditioning:
             local_features = self.get_local_feature(mip_img, cnn_seg_fea, gcn_seg_fea)
             if local_features.shape[-2:] != mip_img.shape[-2:]:

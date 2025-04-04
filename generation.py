@@ -21,7 +21,7 @@ def main(cfg: ProjectConfig):
     # Accelerator
     accelerator = Accelerator(mixed_precision=cfg.run.mixed_precision, cpu=cfg.run.cpu, gradient_accumulation_steps=cfg.optimizer.gradient_accumulation_steps)
     training_utils.setup_distributed_print(accelerator.is_main_process)
-    # Configuration
+    
     print(f'Current working directory: {os.getcwd()}')
     log_info_txt = open('log.txt', 'w')
     log_info_txt.write(OmegaConf.to_yaml(cfg))
