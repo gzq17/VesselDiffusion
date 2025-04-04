@@ -78,5 +78,7 @@ We hope you find our work useful. If you would like to acknowledge it in your pr
 
 ## Contact me
 
-If you have any questions about this code, please do not hesitate to contact me: coming soon.
+If you have any questions about this code, please do not hesitate to contact me.
+
+Zhanqiang Guo: guozq21@mails.tsinghua.edu.cn
 
