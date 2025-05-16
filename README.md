@@ -7,7 +7,7 @@
 
 ## News
 - **[Aug 16 2024]** :bell: Code is coming. 
-  
+- **[May 07 2025]** :bell: Our paper is accepted by TMI. 
 
 ## Requirements
 
