@@ -2,8 +2,18 @@
 
 <img alt="PyTorch" height="20" src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?&style=for-the-badge&logo=PyTorch&logoColor=white" />
 
+This repository contains the official implementation of our paper:
+> **[VesselDiffusion: 3D Vascular Structure Generation Based on Diffusion Model](https://ieeexplore.ieee.org/abstract/document/10994840)**
+> 
+> Zhanqiang Guo, Zimeng Tan, [Jianjiang Feng](http://ivg.au.tsinghua.edu.cn/~jfeng/), Jie Zhou
+
+> Paper: [TMI2024](https://ieeexplore.ieee.org/abstract/document/10994840)  [Tsinghua](https://ivg.au.tsinghua.edu.cn/~jfeng/pubs/Guo_TMI25_VesselDiffusion.pdf)
 
 > **Abstract:** 3D vascular structure models are pivotal in disease diagnosis, surgical planning, and medical education. The intricate nature of the vascular system presents significant challenges in generating accurate vascular structures. Constrained by the complex connectivity of the overall vascular structure, existing methods primarily focus on generating local or individual vessels. In this paper, we introduce a novel two-stage framework termed VesselDiffusion for the generation of detailed vascular structures, which is more valuable for medical analysis. Given that training data for specific vascular structure is often limited, direct generation of 3D data often results in inadequate detail and insufficient diversity. To this end, we initially train a 2D vascular generation model utilizing extensively available generic 2D vascular datasets. Taking the generated 2D images as input, a conditional diffusion model, integrating a dual-stream feature extraction (DSFE) module, is proposed to extrapolate 3D vascular systems. The DSFE module, comprising a Vision Transformer and a Graph Convolutional Network, synergistically captures visual features of global connection rationality and structural features of local vascular details, ensuring the authenticity and diversity of the generated 3D data. To the best of our knowledge, VesselDiffusion is the first model designed for generating comprehensive and realistic vascular networks with diffusion process. Comparative analyses with other generation methodologies demonstrate that the proposed framework achieves superior accuracy and diversity. We will shortly make our code publicly available.
+
+## Video
+
+[![Watch the video](./pic/pic.png)](https://www.bilibili.com/video/BV1XzEWzUEcu)
 
 ## News
 - **[Aug 16 2024]** :bell: Code is coming. 
@@ -74,7 +84,16 @@ Run Step 0 (required*) and put the generated MIP images into 'data/generated2d/m
     ```
 
 ## Citation
-We hope you find our work useful. If you would like to acknowledge it in your project, please use the following citation: coming soon.
+We hope you find our work useful. If you would like to acknowledge it in your project, please use the following citation:
+```
+@article{guo2025vesseldiffusion,
+  title={VesselDiffusion: 3D Vascular Structure Generation Based on Diffusion Model}, 
+  author={Guo, Zhanqiang and Tan, Zimeng and Feng, Jianjiang and Zhou, Jie},
+  journal={IEEE Transactions on Medical Imaging}, 
+  year={2025},
+  publisher={IEEE}
+}
+```
 
 ## Contact me
 
