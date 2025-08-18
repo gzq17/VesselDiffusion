@@ -10,9 +10,14 @@ class CustomHydraRunDir(RunDir):
     dir: str = './output/VesselDiffusion_model/${now:%Y-%m-%d--%H-%M-%S}'
 
 @dataclass
+class LoggingConfig:
+    wandb: bool = False##改
+    wandb_project: str = 'pc2'
+
+@dataclass
 class RunConfig:
     name: str = 'run'
-    job: str = 'train' ##sample  train
+    job: str = 'sample' ##sample  train
     mixed_precision: str = 'fp16'  # 'no'
     cpu: bool = False
     seed: int = 42
@@ -48,7 +53,7 @@ class PointCloudProjectionModelConfig:
     
     # Feature extraction arguments
     image_size: int = '${dataset.image_size}'
-    use_local_colors: bool = False
+    use_local_colors: bool = True
     use_gcn_features: bool = True
     use_local_features: bool = True
     use_global_features: bool = True###改
@@ -98,7 +103,7 @@ class PointCloudDatasetConfig(DatasetConfig):
 class CO3DConfig(PointCloudDatasetConfig):
     type: str = 'coronary'
     # root: str = os.getenv('CO3DV2_DATASET_ROOT')
-    root: str = ''
+    root: str = '/disk1/guozhanqiang/Cerebral/vessel_generate/generate_img/'
     test_origin: str = 'real'
     category: str = 'hydrant'
     subset_name: str = 'fewview_dev'
@@ -125,7 +130,7 @@ class LossConfig:
 
 @dataclass
 class CheckpointConfig:
-    resume: Optional[str] = None
+    resume: Optional[str] = '/disk1/guozhanqiang/Cerebral/vessel_generate/generate_img/pcpcd_result/outputs/debug/2024-04-09--21-19-30/checkpoint-180000.pth'
     resume_training: bool = True
     resume_training_optimizer: bool = True
     resume_training_scheduler: bool = True
@@ -197,6 +202,7 @@ class CosineSchedulerConfig(SchedulerConfig):
 @dataclass
 class ProjectConfig:
     run: RunConfig
+    logging: LoggingConfig
     dataset: PointCloudDatasetConfig
     augmentations: AugmentationConfig
     dataloader: DataloaderConfig
@@ -225,6 +231,7 @@ class ProjectConfig:
 cs = ConfigStore.instance()
 cs.store(name='custom_hydra_run_dir', node=CustomHydraRunDir, package="hydra.run")
 cs.store(group='run', name='default', node=RunConfig)
+cs.store(group='logging', name='default', node=LoggingConfig)
 cs.store(group='model', name='diffrec', node=PointCloudDiffusionModelConfig)
 cs.store(group='model', name='coloring_model', node=PointCloudColoringModelConfig)
 cs.store(group='dataset', name='co3d', node=CO3DConfig)
